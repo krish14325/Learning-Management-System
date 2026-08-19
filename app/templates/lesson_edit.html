@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{lesson.title}}</title>
+</head>
+<body>
+    <header>
+        <h1> Edit lesson : {{lesson.title}}</h1>
+    </header>
+    <main>
+        <form method="Post">
+            {{form.hidden_tag()}}
+
+            <p>{{form.title.label}}<br>
+                {{form.title()}}
+            </p>
+
+            <p>{{form.position.label}}<br>
+                {{form.position()}}
+            </p>
+
+            <p>{{form.content.label}}<br>
+                {{form.content()}}
+            </p>
+
+            {{form.submit()}}
+        </form>
+
+        <a href="{{ url_for("Instructor.lesson_info" , course_id = course.id , lesson_id = lesson.id )}}">
+            <button type="submit"> Cancel </button>
+        </a>
+    </main>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category , message in messages %}
+
+                <div class="alert alert-{{ category }}">
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <header>
+        <h1>Register User!</h1>
+    </header>
+    <main>
+        <form method="POST">
+            {{form.hidden_tag()}}
+
+            <p>
+            {{form.name.label}}<br>
+            {{form.name()}}
+            </p>
+
+            <p>
+            {{form.email.label}}<br>
+            {{form.email()}}
+            </p>
+
+            <p>
+            {{form.password.label}}<br>
+            {{ form.password() }}
+            </p>
+
+            <p>
+            {{form.Confirm_password.label}}<br>
+            {{form.Confirm_password()}}
+            </p>
+
+            <p>
+            {{form.phone_number.label}}<br>
+            {{form.phone_number()}}
+            </p>
+
+            <p>
+            {{form.role.label}}<br>
+            {{form.role()}}
+            </p>
+
+            <p>
+            {{form.submit()}}
+            </p>
+        </form>
+        <br>
+        <p>
+            Already Have An Account!
+        </p>
+        <a href="{{ url_for("auth.login")}}">
+            <button type="submit">
+                Login
+            </button>
+        </a>
+    </main>
+</body>
+</html>

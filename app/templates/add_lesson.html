@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Lesson</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category , message in messages %}
+
+                <div class="alert alert-{{ category }}">
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <header>
+        <h1>Add Lesson</h1>
+        <h2>Course: {{course.title}}</h2>
+    </header>
+    <main>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+
+            <p>
+                {{form.title.label}}
+                {{form.title()}}
+            </p>
+            <br>
+            <p>
+                {{form.content.label}}
+                {{form.content( rows=10 , cols=50 )}}
+            </p>
+            <br>
+            <p>
+                {{form.position.label}}
+                {{form.position()}}
+            </p>
+            <br>
+            <p>
+                {{form.submit()}}
+            </p>
+        </form>
+        <a href="{{url_for("Instructor.instructor_dashboard")}}">
+            <button type="submit">
+                Back To Daashboard
+            </button>
+        </a>
+    </main>
+</body>
+</html>

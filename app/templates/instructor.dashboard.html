@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructor Dashboard</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome {{instructor.name}}!</h1>
+    </header>
+    <main>
+        <h3>Courses List</h3>
+        {% if courses %}
+            {% for course in courses %}
+                <div>
+                <p>Title :- {{course.title}}</p>
+                <p>Description :- {{course.description}}</p>
+                <p>Status :- {{course.status.value.capitalize()}}</p>
+                <a href="{{url_for("Instructor.course_detail" , course_id = course.id)}}">
+                    <button type="submit">Course Detail</button>
+                </a>
+                </div>
+                <hr>
+            {% endfor %}
+        {% else %}
+                <p>You Have Not Created Any Course Yet!</p>
+        {% endif %}
+        <a href="{{ url_for("Instructor.createcourse")}}">
+            <button type="submit">Create Course</button>
+        </a>
+        <br>
+        <br>
+        <a href="{{url_for("auth.logout")}}">
+            <button type="submit"> Logout </button>
+        </a>
+    </main>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome {{student.name}}!</h1>
+    </header>
+    <main>
+        <p>Email :- {{student.email}}</p>
+        <p>role :- {{student.role}}</p>
+        <p>password :- {{student.password}}</p>
+        <p>phone_number :- {{student.phone_number}}</p>
+    </main>
+    <a href="{{url_for("auth.logout")}}">
+        <button type="submit"> Logout </button>
+    </a>
+</body>
+</html>

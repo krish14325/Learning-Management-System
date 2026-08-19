@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{course.title}}</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category , message in messages %}
+
+                <div class="alert alert-{{ category }}">
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <header>
+        <h1>Course Detail</h1>
+    </header>
+    <main>
+        <p>
+            <b>Title</b> :- {{course.title}}<br>
+        </p>
+
+        <p>
+            <b>Description </b>:- {{course.description}}<br>
+        </p>
+
+        <p>
+            <b>Status</b> :- {{course.status.value.capitalize()}}<br>
+        </p>
+        <b> Lessons :-</b>
+        {% if course.lessons %}
+            {% for lesson in course.lessons %}
+                <p>{{lesson.position}}.
+                    <a href="{{url_for("Instructor.lesson_info" , course_id = course.id , lesson_id = lesson.id)}}">
+                     {{lesson.title}}
+                    </a>
+                    </p>
+            {% endfor %}
+        {% else %}
+            <p>No Lessons Added Yet</p>
+        {%endif %}
+
+        <a href="{{url_for("Instructor.add_lesson" , course_id = course.id)}}">
+            <button type="submit">
+                Add Lesson
+            </button>
+        </a>
+
+        <a href="{{url_for("Instructor.instructor_dashboard")}}">
+            <button type="submit">
+                Back To Dashboard
+            </button>
+        </a>
+    </main>
+</body>
+</html>
