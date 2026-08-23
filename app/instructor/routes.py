@@ -19,9 +19,10 @@ def instructor_dashboard():
 def createcourse():
     form = Course_create()
     if form.validate_on_submit():
-        existing_course = Course.query.filter_by(title = form.title.data).first()
-        existing_user_courses  = Course.query.filter_by(teacher_id = current_user.id).all()
-        if existing_course not in existing_user_courses:
+        existing_course = Course.query.filter_by(title = form.title.data ,
+                                                 teacher_id = current_user.id
+                                                ).first()
+        if not existing_course:
             course = Course(
                 title = form.title.data,
                 description = form.description.data,

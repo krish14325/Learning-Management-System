@@ -9,6 +9,7 @@ def register():
     form = Registeration_form()
     if form.validate_on_submit():
         existing_user = User.query.filter_by(email = form.email.data).first()
+        
         if existing_user:
             flash("User Already Exist...." , "danger")
             return redirect(url_for("auth.register"))
