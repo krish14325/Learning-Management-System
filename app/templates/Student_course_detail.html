@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{course.title}}</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category , message in messages %}
+
+                <div class="alert alert-{{ category }}">
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <header>
+        <h1>{{course.title}} Course </h1>
+    </header>
+    <main>
+        <h4>{{ course.description}}</h4>
+
+        <p>Lessons</p>
+
+        {% if course.lessons %}
+            {% for lesson in course.lessons %}
+                <div>
+                    <p>{{lesson.position}}.{{lesson.title}}</p>
+                </div>
+            {%endfor%}
+        {% else %}
+                <p> No Lessons available </p>
+        {% endif %}
+        
+        <a href="{{url_for("student.student_dashboard")}}">
+            <button type="submit">
+                Back To Dashboard
+            </button>
+        </a>
+    </main>
+</body>
+</html>
