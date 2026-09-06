@@ -1,7 +1,7 @@
 from flask import render_template , redirect , flash , url_for
 from . import student_bp
 from flask_login import login_required , current_user
-from app.models import Enrollement , Course , CourseStatus
+from app.models import Enrollement , Course , CourseStatus , Lesson
 from .forms import EnrollementForm
 from app.extensions import db
 @student_bp.route("/dashboard" , methods=["GET" , "POST"])
@@ -82,7 +82,38 @@ def enroll_course(course_id):
         )
     
 
-
+@student_bp.route("/course/<int:course_id>/lesson/<int:lesson_id>")
+@login_required
+def lesson_detail(course_id , lesson_id):
+    
+    if current_user.role != "Stu":
+        flash("Unauthorised User" , "danger")
+        return redirect(url_for("auth.login"))
+    
+    course = Course.query.get_or_404(course_id)
+    
+    enrolled = Enrollement.query.filter_by(
+                    student_id = current_user.id,
+                    course_id = course.id
+                    ).first()
+    
+    if not enrolled :
+        flash("You Are Not Enrolled To This Course" , "danger")
+        return redirect(url_for("student.student_dashboard"))
+    
+    lesson = Lesson.query.get_or_404(lesson_id)
+    
+    if lesson.course_id != course.id:
+        flash("Invalid Course","danger")
+        return redirect(url_for("student.course_detail",
+                                course_id = course.id))
+        
+    return render_template(
+        "student_lesson_detail.html",
+        course = course,
+        lesson = lesson
+    )
+    
 
     
     

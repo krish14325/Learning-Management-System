@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enroll :- {{course.title}}</title>
+    <title>{{course.title}}</title>
 </head>
+<body>
     {% with messages = get_flashed_messages(with_categories=True) %}
         {% if messages %}
             {% for category , message in messages %}
@@ -15,21 +16,23 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-<body>
+    <header>
+        <h1>Course : {{course.title}}</h1>
+    </header>
     <main>
-        <h1>Enroll in {{course.title}}</h1>
-        <p><strong>Description :-</strong> {{course.description}}</p>
+        <h2>{{lesson.position}}.{{lesson.title}}</h2>
 
-        <form method="POST">
-            {{ form.hidden_tag() }}
-
-            {{ form.submit() }}
-        </form>
+        <div>
+            {{ lesson.content }}
+        </div>
         <br>
 
-        <a href="{{ url_for("student.student_dashboard")}}">
-            <button type = "submit">Back to dashboard</button>
+        <a href="{{url_for("student.course_detail" , course_id=course.id)}}">
+            <button type="button">
+                Back To Course
+            </button>
         </a>
+        
     </main>
 </body>
 </html>
